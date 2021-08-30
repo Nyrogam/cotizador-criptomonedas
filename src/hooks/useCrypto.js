@@ -21,19 +21,19 @@ const Select = styled.select`
   font-size: 1.2rem;
 `;
 
-const useCoin = (label, stateInicial, opciones) => {
+const useCrypto = (label, stateInicial, opciones) => {
   // State del hook
 
   const [state, setState] = useState("");
 
-  const SelectCoin = (stateInicial) => (
+  const SelectCrypto = (stateInicial) => (
     <>
       <Label> {label} </Label>
       <Select onChange={(e) => setState(e.target.value)} value={state}>
-        <option value="">- Seleccione su moneda -</option>
-        {opciones.map(({ codigo, nombre }) => (
-          <option key={codigo} value={codigo}>
-            {nombre} ({codigo})
+        <option value="">- Seleccione su criptomoneda -</option>
+        {opciones.map(({ CoinInfo: { Id, Name, FullName } }) => (
+          <option key={Id} value={Name}>
+            {FullName} ({Name})
           </option>
         ))}
       </Select>
@@ -42,7 +42,7 @@ const useCoin = (label, stateInicial, opciones) => {
 
   // Return del state, interfaz y funcion para modificar el state
 
-  return [state, SelectCoin];
+  return [state, SelectCrypto, setState];
 };
 
-export default useCoin;
+export default useCrypto;
