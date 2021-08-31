@@ -1,3 +1,5 @@
+Ver proyecto finalizado: https://app-cotizadorcripto.netlify.app/
+
 Proyecto creado con Create-React-App para cotizar diferentes criptomonedas en diferentes monedas.
 
 Se utiliza la API de cryptocompare.com para mostrar los datos, asimismo se utiliza Axios para conseguir los mismos.
