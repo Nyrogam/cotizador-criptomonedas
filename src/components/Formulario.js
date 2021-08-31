@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import useCoin from "../hooks/useCoin";
 import useCrypto from "../hooks/useCrypto";
 import axios from "axios";
+import Error from "./Error";
 
 const Boton = styled.input`
   margin-top: 20px;
@@ -22,8 +23,9 @@ const Boton = styled.input`
   }
 `;
 
-const Formulario = () => {
+const Formulario = ({ setMoneda, setCrypto }) => {
   const [listado, setListado] = useState([]);
+  const [error, setError] = useState(false);
 
   const MONEDAS = [
     { codigo: "USD", nombre: "Dólar Estadounidense" },
@@ -33,7 +35,7 @@ const Formulario = () => {
   ];
   // Utilizar useCoin
 
-  const [labelMoneda, SelectMonedas] = useCoin("Elige tu Moneda", "", MONEDAS);
+  const [moneda, SelectMonedas] = useCoin("Elige tu Moneda", "", MONEDAS);
 
   // Utilizar useCrypto
 
@@ -56,8 +58,25 @@ const Formulario = () => {
     consultarAPI();
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // validacion
+
+    if (moneda === "" || crypto === "") {
+      setError(true);
+      return;
+    }
+
+    //pasar los datos
+    setError(false);
+    setMoneda(moneda);
+    setCrypto(crypto);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
+      {error ? <Error mensaje="Todos los campos son obligatorios" /> : null}
       <SelectMonedas />
       <SelectCrypto />
       <Boton type="submit" value="Calcular" />
